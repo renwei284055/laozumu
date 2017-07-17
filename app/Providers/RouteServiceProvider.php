@@ -36,6 +36,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapUserRoutes();
+        $this->mapArticleRoutes();
 
     }
 
@@ -46,6 +47,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    protected function mapArticleRoutes()
+    {
+        Route::prefix('article')
+             ->namespace($this->namespace.'\Article')
+             ->group(base_path('routes/article.php'));
+    }
     protected function mapUserRoutes()
     {
         Route::prefix('user')
