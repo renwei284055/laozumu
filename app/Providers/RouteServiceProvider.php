@@ -35,28 +35,23 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapUserRoutes();
-        $this->mapArticleRoutes();
 
-    }
+        $dh = opendir( base_path('routes') );
 
-    /**
-     * Define the "user" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapArticleRoutes()
-    {
-        Route::prefix('article')
-             ->namespace($this->namespace.'\Article')
-             ->group(base_path('routes/article.php'));
-    }
-    protected function mapUserRoutes()
-    {
-        Route::prefix('user')
-             ->namespace($this->namespace.'\User')
-             ->group(base_path('routes/user.php'));
+        while ( ($file = readdir($dh)) !== false ) {
+            
+            if(is_file(base_path('routes/'.$file)) )
+            {
+                $filename =  basename($file,".php");
+      
+                Route::prefix($filename)
+                 ->namespace($this->namespace."\\".ucfirst( $filename ))
+                 ->group(base_path('routes/'.$file));
+
+            }  
+
+        } 
+        closedir($dh);
+
     }
 }
