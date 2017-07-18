@@ -12,6 +12,7 @@ class AuthUser
 
     public function handle($request, Closure $next, $guard = null)
     {
+
         switch (true) 
         {
             case $request->isMethod('options'):

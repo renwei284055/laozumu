@@ -11,6 +11,7 @@ use Validator;
 use App\Http\ResponseBack;
 
 use App\Http\Services\Article\GetParagraphTranslate;
+use App\Http\Services\Article\GetCatalog;
 
 class Article extends Base
 {
@@ -22,6 +23,16 @@ class Article extends Base
         return ResponseBack::resultResponse( 
 
         		['translate'=>$translate->index($request->route('id'))]
+         );
+
+	}
+	public function catalog(Request $request)
+	{
+
+        $translate=new GetCatalog();
+        return ResponseBack::resultResponse( 
+
+        		['catalog'=>$translate->index($request->route('id'))]
          );
 
 	}
