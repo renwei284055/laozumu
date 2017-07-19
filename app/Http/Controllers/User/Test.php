@@ -8,6 +8,7 @@ use Validator;
 use App\Http\ResponseBack;
 
 use App\Http\Services\User\ServiceTest;
+use App\Http\Services\User\GenToken;
 
 class Test extends Base
 {
@@ -32,23 +33,10 @@ class Test extends Base
 	public function index1(Request $request)
 	{
 
-
-        if (Validator::make($request->all(), [
-	            'a' => 'required',
-	            'b' => 'required',
-	        ])->fails()) {
-
-        	return ResponseBack::resultParam();
-        }
-
-        $data=InputClean::index($request->all());
-
-
-        $user=new ServiceTest();
-
+        $token=new GenToken();
         return ResponseBack::resultResponse( 
 
-        		['token1'=>$request->get('token'),'id'=>$request->route('id'),'list'=>$user->index()]
+        		['token1'=>$token->index($request->route('token'))]
          );
 
 	}

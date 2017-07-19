@@ -12,6 +12,7 @@ use App\Http\ResponseBack;
 
 use App\Http\Services\Article\GetParagraphTranslate;
 use App\Http\Services\Article\GetCatalog;
+use App\Http\Services\Article\GetArticle;
 
 class Article extends Base
 {
@@ -36,4 +37,14 @@ class Article extends Base
          );
 
 	}
+    public function getArticle(Request $request)
+    {
+
+        $GetArticle=new GetArticle();
+        return ResponseBack::resultResponse( 
+
+                ['article'=>$GetArticle->index($request->route('aid'),$request->route('cid'))]
+         );
+
+    }
 }
